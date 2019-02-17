@@ -1,40 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://stages/KinematicBody2D.gd" type="Script" id=1]
-[ext_resource path="res://sprites/stanley1.png" type="Texture" id=2]
-[ext_resource path="res://tiles/tiles.tres" type="TileSet" id=3]
+[ext_resource path="res://tiles/tiles.tres" type="TileSet" id=1]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Stone_Head.tscn" type="PackedScene" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
+[node name="world" type="Node"]
 
-custom_solver_bias = 0.0
-extents = Vector2( 4, 10 )
+[node name="TileMap" type="TileMap" parent="." index="0"]
 
-[node name="world" type="Node" index="0"]
-
-[node name="player" type="KinematicBody2D" parent="." index="0"]
-
-position = Vector2( 32, 32 )
-input_pickable = false
-collision_layer = 1
-collision_mask = 1
-collision/safe_margin = 0.08
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Sprite" type="Sprite" parent="player" index="0"]
-
-texture = ExtResource( 2 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player" index="1"]
-
-shape = SubResource( 1 )
-
-[node name="TileMap" type="TileMap" parent="." index="1"]
-
+position = Vector2( -64.373, 0 )
 mode = 0
-tile_set = ExtResource( 3 )
+tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -46,10 +22,18 @@ collision_use_kinematic = false
 collision_friction = 1.0
 collision_bounce = 0.0
 collision_layer = 1
-collision_mask = 1
+collision_mask = 6
 occluder_light_mask = 1
 format = 1
-tile_data = PoolIntArray( 196607, 0, 0, 131089, 0, 0, 262143, 0, 0, 196625, 0, 0, 327679, 0, 0, 262161, 0, 0, 393215, 0, 0, 327697, 0, 0, 458751, 0, 0, 393233, 0, 0, 458752, 0, 0, 458766, 0, 0, 458767, 0, 0, 458768, 0, 0, 524288, 0, 0, 524289, 0, 0, 524293, 0, 0, 524296, 0, 0, 524297, 0, 0, 524300, 0, 0, 524301, 0, 0, 524302, 0, 0, 524303, 0, 0, 524304, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 589837, 0, 0, 589838, 0, 0, 589839, 0, 0, 589840, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0 )
-_sections_unfolded = [ "Cell" ]
+tile_data = PoolIntArray( 196607, 0, 0, 262143, 0, 0, 327679, 0, 0, 262166, 0, 0, 393215, 0, 0, 327702, 0, 0, 458751, 0, 0, 393232, 0, 0, 393238, 0, 0, 458752, 0, 0, 458765, 0, 0, 458766, 0, 0, 458767, 0, 0, 458768, 0, 0, 458774, 0, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 524302, 0, 0, 524303, 0, 0, 524304, 0, 0, 524305, 0, 0, 524306, 0, 0, 524307, 0, 0, 524308, 0, 0, 524309, 0, 0, 524310, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 589837, 0, 0, 589838, 0, 0, 589839, 0, 0, 589840, 0, 0, 589841, 0, 0, 589842, 0, 0, 589843, 0, 0, 589844, 0, 0, 589845, 0, 0, 589846, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 1441807, 0, 0, 1441808, 0, 0, 1441809, 0, 0, 1507344, 0, 0, 1507345, 0, 0, 1507346, 0, 0, 1507347, 0, 0, 1507348, 0, 0, 1507349, 0, 0, 1572884, 0, 0, 1572885, 0, 0 )
+_sections_unfolded = [ "Cell", "Collision" ]
+
+[node name="Player" parent="." index="1" instance=ExtResource( 2 )]
+
+position = Vector2( 96, 64 )
+
+[node name="Stone_Head" parent="." index="2" instance=ExtResource( 3 )]
+
+position = Vector2( 177.255, 84.7835 )
 
 

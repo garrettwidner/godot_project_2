@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/stanley1.png-16a518980278e514ce88e9d056b3c9cb.stex"
+path="res://.import/stanley.png-955c9599201d065f6a844b8938530119.stex"
 
 [deps]
 
-source_file="res://sprites/stanley1.png"
-dest_files=[ "res://.import/stanley1.png-16a518980278e514ce88e9d056b3c9cb.stex" ]
+source_file="res://sprites/stanley.png"
+dest_files=[ "res://.import/stanley.png-955c9599201d065f6a844b8938530119.stex" ]
 
 [params]
 
