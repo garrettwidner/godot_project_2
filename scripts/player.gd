@@ -9,7 +9,7 @@ const MAX_POUND_FALL_SPEED = 70
 
 const blessing_water = preload("res://scenes/Blessing_Water.tscn")
 var blessing_start_range = Vector2(7,10)
-var blessing_drops = 20
+var blessing_drops = 17
 
 onready var anim_player = $AnimationPlayer
 onready var sprite = $Sprite
@@ -69,19 +69,19 @@ func _physics_process(delta):
 	pass
 
 func set_horizontal_speed(velocity):	
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("move_right"):
 		velocity.x = SPEED
-	elif Input.is_action_pressed("ui_left"):
+	elif Input.is_action_pressed("move_left"):
 		velocity.x = -SPEED
-	elif Input.is_action_just_released("ui_left") or Input.is_action_just_released("ui_right"):
+	else:
 		velocity.x = 0
 	return velocity
 
 func change_position2d():
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("move_right"):
 		if sign($Position2D.position.x) == -1:
 			$Position2D.position.x *= -1
-	elif Input.is_action_pressed("ui_left"):
+	elif Input.is_action_pressed("move_left"):
 		if sign($Position2D.position.x) == 1: 
 			$Position2D.position.x *= -1
 

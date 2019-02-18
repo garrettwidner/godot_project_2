@@ -1,21 +1,20 @@
 extends RigidBody2D
 
-var start_velocity = Vector2(170,-120)
+var start_velocity = Vector2(170,-100)
 var trajectory_randomizer_range = Vector2(10,30)
-var alpha_range = .7;
+var alpha_range_min = .15;
+var alpha_range_max = .6;
+var growable_layer = 4
 
 func _ready():
 	contact_monitor = true
 	contacts_reported = 1
 	
-	var max_alpha = $Sprite.modulate.a
-	var min_alpha = max_alpha - alpha_range
 	
-	
-	$Sprite.modulate.a = rand_range(min_alpha, max_alpha)
-	print($Sprite.modulate.a)
+	$Sprite.modulate.a = rand_range(alpha_range_min, alpha_range_max)
 	
 	connect("body_entered", self, "play_splash_animation")
+	connect("body_entered", self, "trigger_growable")
 	$BlessingAnimation.connect("animation_finished", self, "destroy_self")
 	
 	pass
@@ -39,6 +38,11 @@ func _on_VisibilityNotifier2D_screen_exited():
 func play_splash_animation(other):
 	var random_splash = randi() % 4 + 1
 	$BlessingAnimation.play("splash" + str(random_splash))
+	
+func trigger_growable(other):
+	if other.has_method("grow"):
+		other.grow()
+	pass
 
 func destroy_self(anim_name):
 	queue_free()

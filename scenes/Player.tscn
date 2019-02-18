@@ -103,7 +103,7 @@ tracks/0/keys = {
 "values": [ Rect2( 32, 32, 32, 32 ), Rect2( 64, 32, 32, 32 ), Rect2( 0, 64, 32, 32 ), Rect2( 64, 32, 32, 32 ) ]
 }
 
-[node name="Player" type="KinematicBody2D" index="0"]
+[node name="Player" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 2
@@ -144,5 +144,32 @@ blend_times = [  ]
 [node name="Position2D" type="Position2D" parent="." index="3"]
 
 position = Vector2( 6.42561, -11.5661 )
+
+[node name="Camera2D" type="Camera2D" parent="." index="4"]
+
+offset = Vector2( 0, 3 )
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit_left = -10000000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
+limit_smoothed = false
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = false
+smoothing_speed = 5.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.2
+drag_margin_top = 0.2
+drag_margin_right = 0.2
+drag_margin_bottom = 0.2
+editor_draw_screen = true
+editor_draw_limits = false
+editor_draw_drag_margin = false
+_sections_unfolded = [ "Drag Margin" ]
 
 

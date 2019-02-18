@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/blessing_water.png-cbcabc6c923dba71e8f1871769e0cfdb.stex"
+path="res://.import/Sprunkle.png-9f4cc7592ece484055192ab697815514.stex"
 
 [deps]
 
-source_file="res://sprites/blessing_water.png"
-dest_files=[ "res://.import/blessing_water.png-cbcabc6c923dba71e8f1871769e0cfdb.stex" ]
+source_file="res://sprites/Sprunkle.png"
+dest_files=[ "res://.import/Sprunkle.png-9f4cc7592ece484055192ab697815514.stex" ]
 
 [params]
 
