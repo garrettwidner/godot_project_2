@@ -168,6 +168,5 @@ func play_anim(anim_name):
 	anim_player.play(anim_name)
 	
 func animation_ended(anim_name):
-	print("animation seems to have ended")
 	if "bless" in anim_name and is_blessing:
 		is_blessing = false
