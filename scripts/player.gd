@@ -18,12 +18,15 @@ var is_facing_right = true
 var velocity = Vector2()
 var is_pounding = false
 var is_grounded = true
+var is_blessing = false
 
 var jump_count = 0
 var max_jumps = 2
 
 func _ready():
 	add_to_group(game.GROUP_PLAYER)
+	
+	$AnimationPlayer.connect("animation_finished", self, "animation_ended")
 
 func _physics_process(delta):
 
@@ -49,18 +52,20 @@ func _physics_process(delta):
 	else:
 		is_pounding = false
 
-	if is_grounded:
-		if velocity.x == 0:
-			play_anim("idle")
-		else:	
-			play_anim("walk")
-	else:
-		if is_pounding:
-			play_anim("pound")
-		elif velocity.y > 0:
-			play_anim("fall")
+	
+	if !is_blessing:
+		if is_grounded:
+			if velocity.x == 0:
+				play_anim("idle")
+			else:	
+				play_anim("walk")
 		else:
-			play_anim("jump")
+			if is_pounding:
+				play_anim("pound")
+			elif velocity.y > 0:
+				play_anim("fall")
+			else:
+				play_anim("jump")
 	
 	is_grounded = is_on_floor()
 	if is_grounded:
@@ -69,6 +74,10 @@ func _physics_process(delta):
 	pass
 
 func set_horizontal_speed(velocity):	
+	if(is_blessing and is_grounded):
+		velocity.x = 0
+		return velocity
+	
 	if Input.is_action_pressed("move_right"):
 		velocity.x = SPEED
 	elif Input.is_action_pressed("move_left"):
@@ -110,7 +119,17 @@ func jump(velocity):
 	return velocity
 
 func handle_blessing():
-	if Input.is_action_just_pressed("bless"):
+	if Input.is_action_just_pressed("bless") and !is_blessing:
+		
+		is_blessing = true
+		
+		if is_grounded:
+			play_anim("bless")
+		else:
+			play_anim("air_bless")
+			
+		
+		
 		for i in range(blessing_drops):
 			
 			var blessing = blessing_water.instance()
@@ -148,3 +167,7 @@ func play_anim(anim_name):
 		return
 	anim_player.play(anim_name)
 	
+func animation_ended(anim_name):
+	print("animation seems to have ended")
+	if "bless" in anim_name and is_blessing:
+		is_blessing = false
