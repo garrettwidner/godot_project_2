@@ -5,7 +5,6 @@ const JUMP_VELOCITY = 250
 const UP = Vector2(0,-1)
 const SPEED = 100
 const MAX_FALL_SPEED = 300
-const MAX_POUND_FALL_SPEED = 70
 
 const blessing_water = preload("res://scenes/Blessing_Water.tscn")
 var blessing_start_range = Vector2(7,10)
@@ -16,9 +15,8 @@ onready var sprite = $Sprite
 
 var is_facing_right = true
 var velocity = Vector2()
-var is_pounding = false
 var is_grounded = true
-var is_blessing = false
+var is_attacking = false
 
 var jump_count = 0
 var max_jumps = 2
@@ -27,6 +25,8 @@ func _ready():
 	add_to_group(game.GROUP_PLAYER)
 	
 	$AnimationPlayer.connect("animation_finished", self, "animation_ended")
+	
+	get_node("Machete").get_node("Sprite").hide()
 
 func _physics_process(delta):
 
@@ -38,6 +38,7 @@ func _physics_process(delta):
 	change_position2d()
 	
 	handle_blessing()
+	#handle_swipe()
 	
 
 	check_flip(velocity)
@@ -46,23 +47,14 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, UP)
 	
 	
-
-	if !is_grounded and velocity.y > 0 and Input.is_action_pressed("pound"):
-		is_pounding = true
-	else:
-		is_pounding = false
-
-	
-	if !is_blessing:
+	if !is_attacking:
 		if is_grounded:
 			if velocity.x == 0:
 				play_anim("idle")
 			else:	
 				play_anim("walk")
 		else:
-			if is_pounding:
-				play_anim("pound")
-			elif velocity.y > 0:
+			if velocity.y > 0:
 				play_anim("fall")
 			else:
 				play_anim("jump")
@@ -74,7 +66,7 @@ func _physics_process(delta):
 	pass
 
 func set_horizontal_speed(velocity):	
-	if(is_blessing and is_grounded):
+	if(is_attacking and is_grounded):
 		velocity.x = 0
 		return velocity
 	
@@ -106,22 +98,13 @@ func jump(velocity):
 		elif jump_count < max_jumps:
 			jump_count += 1
 			velocity.y = -JUMP_VELOCITY
-			
-	
-	
-	if is_pounding and velocity.y > MAX_POUND_FALL_SPEED:
-		velocity.y = MAX_POUND_FALL_SPEED
-	elif velocity.y > MAX_FALL_SPEED:
-		velocity.y = MAX_FALL_SPEED
-	
-	
 	
 	return velocity
 
 func handle_blessing():
-	if Input.is_action_just_pressed("bless") and !is_blessing:
+	if Input.is_action_just_pressed("bless") and !is_attacking:
 		
-		is_blessing = true
+		is_attacking = true
 		
 		if is_grounded:
 			play_anim("bless")
@@ -148,8 +131,14 @@ func handle_blessing():
 			blessing.position = $Position2D.global_position + Vector2(xMod, yMod)
 			
 		
+func handle_swipe():
+	if Input.is_action_just_pressed("swipe") and !is_attacking:
+		is_attacking = true
 		
-		
+		if is_grounded:
+			play_anim("swipe")
+		else:
+			is_attacking = false
 
 func check_flip(velocity):
 	if is_facing_right and velocity.x < 0:
@@ -166,7 +155,8 @@ func play_anim(anim_name):
 	if anim_player.is_playing() and anim_player.current_animation == anim_name:
 		return
 	anim_player.play(anim_name)
+
 	
 func animation_ended(anim_name):
-	if "bless" in anim_name and is_blessing:
-		is_blessing = false
+	if ("bless" in anim_name or "swipe" in anim_name) and is_attacking:
+		is_attacking = false

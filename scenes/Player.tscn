@@ -1,7 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scripts/player.gd" type="Script" id=1]
 [ext_resource path="res://sprites/stanley.png" type="Texture" id=2]
+[ext_resource path="res://scripts/health.gd" type="Script" id=3]
+[ext_resource path="res://sprites/machete_swipe.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -66,6 +68,37 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=5]
 
+resource_name = "ground_swipe"
+length = 1.0
+loop = false
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Rect2( 64, 160, 32, 32 ), Rect2( 0, 192, 32, 32 ), Rect2( 32, 192, 32, 32 ), Rect2( 64, 192, 32, 32 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Machete/Sprite:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Rect2( 0, 0, 64, 64 ), Rect2( 64, 0, 64, 64 ), Rect2( 128, 0, 64, 64 ), Rect2( 192, 0, 64, 64 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+
 length = 0.8
 loop = true
 step = 0.1
@@ -82,7 +115,7 @@ tracks/0/keys = {
 "values": [ Rect2( 0, 0, 32, 32 ), Rect2( 32, 0, 32, 32 ), Rect2( 64, 0, 32, 32 ), Rect2( 0, 32, 32, 32 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 
 length = 0.2
 loop = true
@@ -100,7 +133,7 @@ tracks/0/keys = {
 "values": [ Rect2( 32, 64, 32, 32 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 
 length = 0.2
 loop = true
@@ -118,7 +151,7 @@ tracks/0/keys = {
 "values": [ Rect2( 0, 96, 32, 32 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 
 length = 0.8
 loop = true
@@ -136,7 +169,7 @@ tracks/0/keys = {
 "values": [ Rect2( 32, 32, 32, 32 ), Rect2( 64, 32, 32, 32 ), Rect2( 0, 64, 32, 32 ), Rect2( 64, 32, 32, 32 ) ]
 }
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 2
@@ -152,7 +185,7 @@ __meta__ = {
 
 texture = ExtResource( 2 )
 region_enabled = true
-region_rect = Rect2( 0, 160, 32, 32 )
+region_rect = Rect2( 64, 192, 32, 32 )
 _sections_unfolded = [ "Region" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
@@ -170,10 +203,11 @@ playback_speed = 1.0
 anims/air_bless = SubResource( 2 )
 anims/bless = SubResource( 3 )
 anims/fall = SubResource( 4 )
-anims/idle = SubResource( 5 )
-anims/jump = SubResource( 6 )
-anims/pound = SubResource( 7 )
-anims/walk = SubResource( 8 )
+anims/ground_swipe = SubResource( 5 )
+anims/idle = SubResource( 6 )
+anims/jump = SubResource( 7 )
+anims/pound = SubResource( 8 )
+anims/walk = SubResource( 9 )
 blend_times = [  ]
 
 [node name="Position2D" type="Position2D" parent="." index="3"]
@@ -206,5 +240,19 @@ editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
 _sections_unfolded = [ "Drag Margin" ]
+
+[node name="Health" type="Node" parent="." index="5"]
+
+script = ExtResource( 3 )
+max_health = 9
+
+[node name="Machete" type="Position2D" parent="." index="6"]
+
+[node name="Sprite" type="Sprite" parent="Machete" index="0"]
+
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 192, 0, 64, 64 )
+_sections_unfolded = [ "Region" ]
 
 

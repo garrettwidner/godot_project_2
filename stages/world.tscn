@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://tiles/tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Stone_Head.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/Sprunkle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Interface.tscn" type="PackedScene" id=5]
 
 [node name="world" type="Node"]
 
@@ -41,4 +42,17 @@ position = Vector2( 177.255, 84.7835 )
 
 position = Vector2( 248.764, 98.5843 )
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="4"]
 
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="Interface" parent="CanvasLayer" index="0" instance=ExtResource( 5 )]
+
+[connection signal="health_changed" from="Player/Health" to="CanvasLayer/Interface" method="_on_Health_health_changed"]
+
+
+[editable path="Player"]
