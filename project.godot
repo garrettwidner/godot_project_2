@@ -85,6 +85,8 @@ swipe=[ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"",
 2d_physics/layer_3="enemy"
 2d_physics/layer_4="blessing"
 2d_physics/layer_5="growable"
+2d_physics/layer_6="attackable"
+2d_physics/layer_7="sword"
 
 [rendering]
 

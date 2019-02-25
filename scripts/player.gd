@@ -21,12 +21,15 @@ var is_attacking = false
 var jump_count = 0
 var max_jumps = 2
 
+onready var machete_area = get_node("Machete/Machete_Area")
+onready var machete_sprite = get_node("Machete/Sprite")
+
 func _ready():
 	add_to_group(game.GROUP_PLAYER)
 	
 	$AnimationPlayer.connect("animation_finished", self, "animation_ended")
 	
-	get_node("Machete").get_node("Sprite").hide()
+	machete_sprite.hide()
 
 func _physics_process(delta):
 
@@ -134,6 +137,7 @@ func handle_blessing():
 func handle_swipe():
 	if Input.is_action_just_pressed("swipe") and !is_attacking:
 		is_attacking = true
+		machete_area.monitoring = true
 		
 		if is_grounded:
 			play_anim("ground_swipe")
@@ -150,8 +154,8 @@ func check_flip(velocity):
 func flip():
 	is_facing_right = !is_facing_right
 	sprite.flip_h = !sprite.flip_h
-	var machete_sprite = get_node("Machete").get_node("Sprite")
 	machete_sprite.flip_h = !machete_sprite.flip_h
+	machete_area.scale *= -1
 	
 func play_anim(anim_name):
 	if anim_player.is_playing() and anim_player.current_animation == anim_name:
@@ -162,3 +166,11 @@ func play_anim(anim_name):
 func animation_ended(anim_name):
 	if ("bless" in anim_name or "swipe" in anim_name) and is_attacking:
 		is_attacking = false
+		machete_area.monitoring = false
+		
+
+func _on_Machete_Area_body_entered(body):
+	if body.has_method("get_hit"):
+		body.get_hit(1)
+	
+	pass # replace with function body
