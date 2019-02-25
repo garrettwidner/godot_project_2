@@ -38,7 +38,7 @@ func _physics_process(delta):
 	change_position2d()
 	
 	handle_blessing()
-	#handle_swipe()
+	handle_swipe()
 	
 
 	check_flip(velocity)
@@ -136,9 +136,9 @@ func handle_swipe():
 		is_attacking = true
 		
 		if is_grounded:
-			play_anim("swipe")
+			play_anim("ground_swipe")
 		else:
-			is_attacking = false
+			play_anim("air_swipe")
 
 func check_flip(velocity):
 	if is_facing_right and velocity.x < 0:
@@ -150,6 +150,8 @@ func check_flip(velocity):
 func flip():
 	is_facing_right = !is_facing_right
 	sprite.flip_h = !sprite.flip_h
+	var machete_sprite = get_node("Machete").get_node("Sprite")
+	machete_sprite.flip_h = !machete_sprite.flip_h
 	
 func play_anim(anim_name):
 	if anim_player.is_playing() and anim_player.current_animation == anim_name:
