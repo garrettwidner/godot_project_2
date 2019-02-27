@@ -24,6 +24,7 @@ var max_jumps = 2
 onready var machete_area = get_node("Machete/Machete_Area")
 onready var machete_sprite = get_node("Machete/Sprite")
 
+
 func _ready():
 	add_to_group(game.GROUP_PLAYER)
 	

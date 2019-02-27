@@ -4,11 +4,17 @@ signal health_changed(health)
 signal health_depleted
 
 var health = 0
-export(int) var max_health = 9
+export(int) var max_health = 23
 
-func ready():
+func _ready():
 	health = max_health
 	emit_signal("health_changed", health)
+	
+func _input(event):
+	if event is InputEventKey and event.scancode == KEY_U and not event.is_echo() and event.is_pressed():
+		take_damage(1)
+	elif event is InputEventKey and event.scancode == KEY_I and not event.is_echo() and event.is_pressed():
+		heal(1)
 	
 func take_damage(amount):
 	health -= amount
@@ -17,5 +23,5 @@ func take_damage(amount):
 	
 func heal(amount):
 	health += amount
-	health = max(health, max_health)
+	health = min(health, max_health)
 	emit_signal("health_changed", health)

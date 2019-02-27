@@ -65,4 +65,7 @@ margin_top = 21.0
 margin_right = 19.0
 margin_bottom = 53.0
 
+[connection signal="health_changed" from="." to="WaterBar" method="_on_Interface_health_changed"]
 
+
+[editable path="WaterBar"]

@@ -72,6 +72,30 @@ tracks/2/keys = {
 "update": 1,
 "values": [ Rect2( 0, 0, 64, 64 ), Rect2( 64, 0, 64, 64 ), Rect2( 128, 0, 64, 64 ), Rect2( 0, 64, 64, 64 ), Rect2( 64, 64, 64, 64 ) ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Machete/Machete_Area:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Machete/Machete_Area:monitorable")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [sub_resource type="Animation" id=4]
 
@@ -145,6 +169,30 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Machete/Machete_Area:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Machete/Machete_Area:monitorable")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
@@ -228,7 +276,7 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 points = PoolVector2Array( 0, -17, 17, -4, 17, 4, 0, 10 )
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" index="0"]
 
 position = Vector2( 0.550146, -0.427892 )
 input_pickable = false
@@ -316,11 +364,14 @@ _sections_unfolded = [ "Region", "Visibility" ]
 
 [node name="Machete_Area" type="Area2D" parent="Machete" index="1"]
 
+position = Vector2( 1.19209e-007, 1.2219e-006 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
+monitoring = false
+monitorable = false
 collision_layer = 64
 collision_mask = 36
 audio_bus_override = false

@@ -34,6 +34,10 @@ _sections_unfolded = [ "Cell", "Collision" ]
 
 position = Vector2( 96, 64 )
 
+[node name="Health" parent="Player" index="5"]
+
+max_health = 23
+
 [node name="Stone_Head" parent="." index="2" instance=ExtResource( 3 )]
 
 position = Vector2( 177.255, 84.7835 )
@@ -56,3 +60,4 @@ transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
 
 [editable path="Player"]
+[editable path="CanvasLayer/Interface"]
