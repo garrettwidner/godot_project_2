@@ -15,6 +15,8 @@ func _input(event):
 		take_damage(1)
 	elif event is InputEventKey and event.scancode == KEY_I and not event.is_echo() and event.is_pressed():
 		heal(1)
+	elif event is InputEventKey and event.scancode == KEY_Y and not event.is_echo() and event.is_pressed():
+		take_damage(6)
 	
 func take_damage(amount):
 	health -= amount
