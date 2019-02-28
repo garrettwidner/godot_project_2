@@ -6,7 +6,7 @@
 [ext_resource path="res://scenes/Sprunkle.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/Interface.tscn" type="PackedScene" id=5]
 
-[node name="world" type="Node"]
+[node name="world" type="Node" index="0"]
 
 [node name="TileMap" type="TileMap" parent="." index="0"]
 
@@ -55,6 +55,21 @@ scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
 [node name="Interface" parent="CanvasLayer" index="0" instance=ExtResource( 5 )]
+
+[node name="WaterIcon" parent="CanvasLayer/Interface/Icons" index="0"]
+
+rect_pivot_offset = Vector2( 0, 0 )
+script = null
+
+[node name="SwordIcon" parent="CanvasLayer/Interface/Icons" index="1"]
+
+rect_pivot_offset = Vector2( 0, 0 )
+script = null
+
+[node name="HandIcon" parent="CanvasLayer/Interface/Icons" index="2"]
+
+rect_pivot_offset = Vector2( 0, 0 )
+script = null
 
 [connection signal="health_changed" from="Player/Health" to="CanvasLayer/Interface" method="_on_Health_health_changed"]
 

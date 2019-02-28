@@ -8,6 +8,6 @@ func _ready():
 
 func grow():
 	if !has_grown:
-		print("It should grow")
+		#print("It should grow")
 		get_node("../../AnimationPlayer").play("Grow")
 		has_grown = true

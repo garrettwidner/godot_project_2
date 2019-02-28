@@ -65,6 +65,12 @@ margin_top = 21.0
 margin_right = 19.0
 margin_bottom = 53.0
 
+[connection signal="button_pressed" from="." to="Icons/SwordIcon" method="_on_Interface_button_pressed"]
+
+[connection signal="button_pressed" from="." to="Icons/HandIcon" method="_on_Interface_button_pressed"]
+
+[connection signal="button_pressed" from="." to="Icons/WaterIcon" method="_on_Interface_button_pressed"]
+
 [connection signal="health_changed" from="." to="WaterBar" method="_on_Interface_health_changed"]
 
 
