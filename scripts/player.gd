@@ -17,6 +17,7 @@ var is_facing_right = true
 var velocity = Vector2()
 var is_grounded = true
 var is_attacking = false
+var is_handing = false
 
 var jump_count = 0
 var max_jumps = 2
@@ -24,6 +25,8 @@ var max_jumps = 2
 onready var machete_area = get_node("Machete/Machete_Area")
 onready var machete_sprite = get_node("Machete/Sprite")
 
+onready var hand_area = get_node("HandCheck/Hand_Area")
+onready var hand_sprite = get_node("HandCheck/Sprite")
 
 func _ready():
 	add_to_group(game.GROUP_PLAYER)
@@ -43,7 +46,7 @@ func _physics_process(delta):
 	
 	handle_blessing()
 	handle_swipe()
-	
+	handle_hand()
 
 	check_flip(velocity)
 
@@ -144,6 +147,32 @@ func handle_swipe():
 			play_anim("ground_swipe")
 		else:
 			play_anim("air_swipe")
+			
+func handle_hand():
+	
+	# block > grip > pull > comfort
+	
+	if Input.is_action_just_pressed("hand") and !is_handing:
+		#is_handing = true
+		var hand_objects_array = hand_area.get_overlapping_bodies()
+		#
+		for i in hand_objects_array:
+			if i.is_in_group(game.GROUP_BLOCKABLE):
+				#block
+				return
+		for i in hand_objects_array:
+			if i.is_in_group(game.GROUP_GRIPPABLE):
+				#grip
+				return
+		for i in hand_objects_array:
+			if i.is_in_group(game.GROUP_PULLABLE):
+				#grip to pull
+				return
+		for i in hand_objects_array:
+			if i.is_in_group(game.GROUP_COMFORTABLE):
+				#comfort
+				return
+		
 
 func check_flip(velocity):
 	if is_facing_right and velocity.x < 0:
@@ -157,6 +186,8 @@ func flip():
 	sprite.flip_h = !sprite.flip_h
 	machete_sprite.flip_h = !machete_sprite.flip_h
 	machete_area.scale *= -1
+	hand_sprite.flip_h = !hand_sprite.flip_h
+	hand_area.scale *= -1
 	
 func play_anim(anim_name):
 	if anim_player.is_playing() and anim_player.current_animation == anim_name:

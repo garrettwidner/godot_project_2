@@ -27,16 +27,15 @@ tracks/0/keys = {
 "values": [ Rect2( 0, 32, 32, 32 ), Rect2( 32, 32, 32, 32 ), Rect2( 64, 32, 32, 32 ), Rect2( 96, 32, 32, 32 ), Rect2( 0, 64, 32, 32 ), Rect2( 32, 64, 32, 32 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 
 resource_name = "flash"
 length = 1.0
 loop = false
 step = 0.1
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 
-resource_name = "idle"
 length = 4.0
 loop = true
 step = 0.1
@@ -53,7 +52,7 @@ tracks/0/keys = {
 "values": [ Rect2( 0, 0, 32, 32 ), Rect2( 32, 0, 32, 32 ), Rect2( 64, 0, 32, 32 ), Rect2( 96, 0, 32, 32 ), Rect2( 64, 0, 32, 32 ), Rect2( 32, 0, 32, 32 ), Rect2( 0, 0, 32, 32 ) ]
 }
 
-[node name="Stone_Head" type="KinematicBody2D" index="0"]
+[node name="Stone_Head" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 4
@@ -83,8 +82,8 @@ playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
 anims/die = SubResource( 2 )
-anims/flash = SubResource( 4 )
-anims/idle = SubResource( 3 )
+anims/flash = SubResource( 3 )
+anims/idle = SubResource( 4 )
 blend_times = [  ]
 
 [node name="RayCast2D" type="RayCast2D" parent="." index="3"]
